@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, Put, Delete, Patch } from '@nestjs/common';
 import { Item} from './items.model'
 import { ItemStatus } from './item-status.enum';
 import { ItemsService } from './items.service';
@@ -9,6 +9,10 @@ export class ItemsController {
   @Get()
   findAll(){
     return this.itemsService.findAll()
+  }
+  @Get(":id")
+  findById(@Param('id') id: string){
+    return this.itemsService.findById(id)
   }
   @Post()
   create(
@@ -25,5 +29,14 @@ export class ItemsController {
       status: ItemStatus.ON_SALE
     }
     return this.itemsService.create(item)
+  }
+
+  @Patch(":id")
+  updateStatus(@Param("id") id: string): Item {
+    return this.itemsService.updateStatus(id)
+  }
+  @Delete(":id")
+  delete(@Param("id") id: string): void{
+    return this.itemsService.delete(id);
   }
 }
