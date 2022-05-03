@@ -4,14 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 @Module({
   imports: [
     ItemsModule,
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      password: 'password',
-      database: 'postgres',
-      autoLoadEntities: true
-    })
+    TypeOrmModule.forRoot()
   ],
   controllers: [],
   providers: [],
