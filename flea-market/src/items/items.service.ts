@@ -4,6 +4,7 @@ import { CreateItemDto } from './dto/item-create-dto';
 import { ItemStatus } from './item-status.enum';
 import { ItemRepogitory } from './item.repository';
 import { Item } from '../entities/item.entity';
+import { DeleteResult, UpdateResult } from 'typeorm';
 
 @Injectable()
 export class ItemsService {
@@ -22,12 +23,12 @@ export class ItemsService {
   async find(): Promise<Item[]> {
     return await this.itemRepository.find()
   }
-  // updateStatus(id: string): Item{
-  //   const item = this.findById(id);
-  //   item.status = ItemStatus.SOLD_OUT
-  //   return item
-  // }
-  delete(id: string): void{
-    this.items = this.items.filter((item) => item.id !== id)
+  async updateStatus(id: string): Promise<Item>{
+    const item = await this.findById(id);
+    const result = await this.itemRepository.save({...item, status: ItemStatus.SOLD_OUT, updatedAt: new Date().toISOString()})
+    return result
+  }
+  async delete(id: string): Promise<void> {
+    await this.itemRepository.delete({id})
   }
 }
