@@ -9,11 +9,8 @@ import { Item } from '../entities/item.entity';
 export class ItemsService {
   constructor(private readonly itemRepository: ItemRepogitory  ){}
   private items: Item[] = [];
-  findAll(): Item[]{
-    return this.items
-  }
-  findById(id: string): Item {
-    const find = this.items.find((item) => item.id === id)
+  async findById(id: string): Promise<Item> {
+    const find = this.itemRepository.findOne(id)
     if(!find){
       throw new NotFoundException()
     }
@@ -22,11 +19,14 @@ export class ItemsService {
   async create(createItemDto: CreateItemDto): Promise<Item> {
     return await this.itemRepository.createItem(createItemDto)
   }
-  updateStatus(id: string): Item{
-    const item = this.findById(id);
-    item.status = ItemStatus.SOLD_OUT
-    return item
+  async find(): Promise<Item[]> {
+    return await this.itemRepository.find()
   }
+  // updateStatus(id: string): Item{
+  //   const item = this.findById(id);
+  //   item.status = ItemStatus.SOLD_OUT
+  //   return item
+  // }
   delete(id: string): void{
     this.items = this.items.filter((item) => item.id !== id)
   }

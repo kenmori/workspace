@@ -18,4 +18,8 @@ export class ItemRepogitory extends Repository<Item> {
     await this.save(item);
     return item;
   }
+  async findAll(): Promise<Item[]> {
+    const items = await this.findAll()
+    return items
+  }
 }
