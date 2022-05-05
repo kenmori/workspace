@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, Param, Put, Delete, Patch, ParseUUIDPipe } from '@nestjs/common';
-import { Item} from './items.model'
+import { Item} from '../entities/item.entity'
 import { ItemStatus } from './item-status.enum';
 import { ItemsService } from './items.service';
 import { CreateItemDto } from './dto/item-create-dto';
@@ -16,8 +16,8 @@ export class ItemsController {
     return this.itemsService.findById(id)
   }
   @Post()
-  create(@Body() createItemDto: CreateItemDto): Item {
-    return this.itemsService.create(createItemDto)
+  async create(@Body() createItemDto: CreateItemDto): Promise<Item> {
+    return await this.itemsService.create(createItemDto)
   }
 
   @Patch(":id")
