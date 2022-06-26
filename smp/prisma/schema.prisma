@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 設定する側
+model Question {
+  id          Int        @id @default(autoincrement())
+  text        String
+  answer      YESNO
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  Answers     Answers?   @relation(fields: [answersId], references: [id])
+  answersId   String?    @db.Uuid
+  Questions   Questions? @relation(fields: [questionsId], references: [id])
+  questionsId String?    @db.Uuid
+}
+
+enum YESNO {
+  YES
+  NO
+}
+
+// 答える側
+model Answer {
+  Int        @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  quetionId String
+  value     YESNO[]
+}
+
+model Answers {
+  id        String     @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  userId    String
+  quetions  Question[] @relation(references: [id])
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  User      User       @relation(fields: [userId], references: [id])
+}
+
+model Questions {
+  id        String     @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  userId    String
+  title     String
+  quetions  Question[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  User      User       @relation(fields: [userId], references: [id])
+}
+
+model Result {
+  id         String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  questionId String
+  answerId   String
+  value      Int
+  text       String
+  Results    Results? @relation(fields: [resultsId], references: [id])
+  resultsId  String?  @db.Uuid
+}
+
+model Results {
+  id      String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  results Result[]
+  User    User?    @relation(fields: [userId], references: [id])
+  userId  String?  @db.Uuid
+}
+
+model User {
+  id         String      @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  firstName  String
+  secondName String
+  birthDay   DateTime
+  quetions   Questions[] //自分で作った質問
+  answers    Answers[] // 答えた質問
+  results    Results[] // 結果
+  tel        Int
+  mail       String      @unique
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
