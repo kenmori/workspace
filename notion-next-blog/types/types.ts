@@ -1,3 +1,4 @@
+import { ParsedUrlQuery } from "querystring"
 import {ReactNode} from "react"
 
 export type LayoutProps = {
@@ -15,3 +16,5 @@ export type CardProps = {
     content: string;
   }
 }
+
+export type Params = ParsedUrlQuery
