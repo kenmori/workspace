@@ -1,34 +1,89 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Notion APIを使う
 
-## Getting Started
+[Notion API](https://developers.notion.com/)
 
-First, run the development server:
+1.
+[https://developers.notion.com/docs/getting-started](https://developers.notion.com/docs/getting-started)
 
-```bash
-npm run dev
-# or
-yarn dev
+2.
+[https://www.notion.com/my-integrations](https://www.notion.com/my-integrations)
+
+2.1
+<img src="https://kenjimorita.jp/wp-content/uploads/2022/07/スクリーンショット-2022-07-30-23.17.58.png">
+
+- 名前は notion next blog
+- コンテンツを読み取るにチェックボタン(表示するだけなので)
+- 「ユーザー情報なし」にチェック
+
+<img src="https://kenjimorita.jp/wp-content/uploads/2022/07/スクリーンショット-2022-07-30-23.21.33.png">
+
+
+- 送信
+
+3.
+
+<img src="https://kenjimorita.jp/wp-content/uploads/2022/07/スクリーンショット-2022-07-30-23.21.33.png" />
+
+シークレットトークンが発行される
+- env.localに
+
+```
+NOTION_KEY=secret__xxxx
+```
+貼り付ける
+
+4.
+notionにページをつける
+/database
+フルページ
+データベース名を`Articles`などにする
+
+share -> inviteのinputをクリック。integrationに今作ったものが出てくるのでクリック
+そこのリンクをコピーする
+
+
+5 `NOTION_DATABASE_ID`
+
+https://www.notion.so/2a6246eaaeee3c5457f97d3b008d6c3d274?v=44ed0e6e8fb546c29f364dc43fa05dca
+
+もしこれだったらドメインと?以降はいらない
+
+`2a6246eaaeee3c5457f97d3b008d6c3d274`
+
+
+6.
+一度サーバーを止めて
+`yarn dev`
+
+データベースに
+propertyを設定
+
+```
+name (Title)
+
+tags (Multi-select)
+
+slug (Text)
+
+published (Date)
+
+author (Text)
+
+isPublic (Checkbox)
+
+created (Created Time)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+7.
+JavaScript client: https://github.com/makenotion/notion-sdk-js
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+8.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+ `yarn add -D @notionhq/client@1.0.4`
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+9. call client SDK
 
-## Learn More
+- query
+ https://developers.notion.com/reference/post-database-query
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+ 
