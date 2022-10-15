@@ -3,23 +3,22 @@ import Image from "next/image";
 import React from "react";
 import ArticleMeta from "../../components/ArticleMeta";
 import Layout from "../../components/Layout";
-import { AirticleProps, Params } from "../../types/types";
+import { ArticleProps, Params } from "../../types/types";
 import { sampleCards } from "../../utils/sample";
-
-
+ 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const {slug} = ctx.params as Params // as [slug].tsx
-  const page = sampleCards.find((card) => card.slug === slug)
-
+  const { slug } = ctx.params as Params;
+  
+  const page = sampleCards.find((data) => data.slug === slug);
+ 
   return {
     props: {
-      page
-    }
-  }
-}
-
-// NextPage Page型
-const Article: NextPage<AirticleProps> = ({page}) => {
+      page: page || {content: "", tags: []},
+    },
+  };
+};
+ 
+const Article: NextPage<ArticleProps> = ({ page }) => {
   return (
     <Layout>
       <article className="w-full">
@@ -27,12 +26,12 @@ const Article: NextPage<AirticleProps> = ({page}) => {
         <div className="my-12">
           <ArticleMeta page={page} />
         </div>
-
+ 
         {/* article */}
-        <div className="my-12">article {page.author}</div>
+        <div className="my-12">article {page.content}</div>
       </article>
     </Layout>
   );
 };
-
+ 
 export default Article;
