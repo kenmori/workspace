@@ -1,9 +1,9 @@
-import { ParsedUrlQuery } from "querystring"
-import {ReactNode} from "react"
+import { ParsedUrlQuery } from "querystring";
+import { ReactNode } from "react";
 
 export type LayoutProps = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 
 export type PageProps = {
   slug: string;
@@ -13,13 +13,52 @@ export type PageProps = {
   published: string;
   tags: string[];
   content: string;
-}
+};
+
+export type IndexProps = {pages: PageType[]}
 
 export type CardProps = {
-  page: PageProps
-}
+  page: PageType;
+};
+export type ArticleProps = CardProps;
+export type ArticleMetaProps = CardProps;
 
-export type AirticleProps = PageProps
-export type ArticleMeta = PageProps
+export type Params = ParsedUrlQuery & {
+  slug: string;
+};
 
-export type Params = ParsedUrlQuery
+export type FileType = {
+  file?: { url: string };
+  external?: { url: string };
+};
+
+export type AnnotationType = {
+  bold: boolean;
+  code: boolean;
+  italic: boolean;
+  strikethrough: boolean;
+  underline: boolean;
+  color: string;
+};
+
+export type RichTextType = {
+  plain_text: string;
+  href: string | null;
+  annotations: AnnotationType;
+};
+
+export type PropertyType = {
+  name: { title: RichTextType[] };
+  author: { rich_text: RichTextType[] };
+  slug: { rich_text: RichTextType[] };
+  published: { date: { start: string } };
+  isPublic: { checkbox: boolean };
+  tags: { multi_select: [{ name: string }] };
+};
+
+export type PageType = {
+  id: string;
+  cover: FileType | null;
+  // properties: Record<string, any>;
+  properties: PropertyType;
+};
