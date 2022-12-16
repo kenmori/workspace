@@ -1,0 +1,1 @@
+{"c":["webpack"],"r":["pages/articles/[slug]"],"m":["./components/ArticleMeta.tsx","./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?absolutePagePath=%2FUsers%2Fkenjimorita%2Fgit%2Fworkspace%2Fnotion-next-blog%2Fpages%2Farticles%2F%5Bslug%5D.tsx&page=%2Farticles%2F%5Bslug%5D!","./pages/articles/[slug].tsx"]}
