@@ -25,16 +25,6 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/isr": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/isr.js"
-    ],
-    "/ssg": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/ssg.js"
-    ],
     "/ssr": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
