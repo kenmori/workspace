@@ -10,7 +10,11 @@ import { Task, Notice } from '../types/types'
 import { title } from 'process'
 
 export const getStaticProps: GetStaticProps = async () => {
+<<<<<<< HEAD
+  console.log('getstaticprops/ssg invoked')
+=======
   console.log('getstaticprops/isr invoked')
+>>>>>>> main
   const {data: tasks} = await supabase.from('todos').select('*').order('created_at', { ascending: true})
   const {data: notices} = await supabase.from('notices').select('*').order('created_at', { ascending: true})
 
@@ -45,7 +49,11 @@ const Isr: NextPage<StaticProps> = ({tasks, notices}) => {
         })}
       </ul>
       <Link href="/ssr" prefetch={false}>
+<<<<<<< HEAD
+        <a className="my-3 text-xs">Link to ssg</a>
+=======
         <a className="my-3 text-xs">Link to ssr</a>
+>>>>>>> main
       </Link>
     </Layout>
   )
