@@ -10,7 +10,7 @@ import { Task, Notice } from '../types/types'
 import { title } from 'process'
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  console.log('getstaticprops/ssg invoked')
+  console.log('getstaticprops/ssr invoked')
   const {data: tasks} = await supabase.from('todos').select('*').order('created_at', { ascending: true})
   const {data: notices} = await supabase.from('notices').select('*').order('created_at', { ascending: true})
 
