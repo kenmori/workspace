@@ -1,8 +1,7 @@
-openapi: '3.1.3'
+openapi: '3.0.3'
 
-## option + shift + p
 info:
-  title: revers
+  title: udemy-reversi-webapp
   version: 1.0.0
 
 paths:
@@ -10,7 +9,7 @@ paths:
     get:
       responses:
         200:
-          description: "OK"
+          description: OK
           content:
             application/json:
               schema:
@@ -28,11 +27,13 @@ paths:
                           type: integer
                           example: 1
                         startedAt:
-                         ∏∏ type: string
-                      ∏∏  example: 2017-07-21T17:32:282
+                          type: string
+                          example: 2017-07-21T17:32:28Z
+
     post:
-      201:
-        description: Created
+      responses:
+        201:
+          description: Created
 
   /api/games/latest/turns/{turnCount}:
     parameters:
@@ -44,8 +45,7 @@ paths:
     get:
       responses:
         200:
-          description: ""
-          deprecated: OK
+          description: OK
           content:
             application/json:
               schema:
@@ -58,21 +58,22 @@ paths:
                     type: array
                     example:
                       [
-                      [0, 0, 0, 0, 0, 0, 0, 0],
-                      [0, 0, 0, 0, 0, 0, 0, 0],
-                      [0, 0, 0, 0, 0, 0, 0, 0],
-                      [0, 0, 0, 2, 2, 0, 0, 0],
-                      [0, 0, 0, 1, 1, 0, 0, 0],
-                      [0, 0, 0, 0, 0, 0, 0, 0],
-                      [0, 0, 0, 0, 0, 0, 0, 0],
-                      [0, 0, 0, 0, 0, 0, 0, 0],
-                    ]
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 1, 2, 0, 0, 0],
+                        [0, 0, 0, 2, 1, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0]
+                      ]
                   nextDisc:
                     type: integer
                     example: 1
                   winnerDisc:
                     type: integer
                     example: 1
+
   /api/games/latest/turns:
     post:
       requestBody:
@@ -92,11 +93,10 @@ paths:
                       example: 1
                     x:
                       type: integer
-                      example: 1
+                      example: 0
                     y:
                       type: integer
-                      example: 1
+                      example: 0
       responses:
         201:
-          description:  Created
-
+          description: Created
