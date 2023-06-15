@@ -1,32 +1,22 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
+
 const apiUrl = 'http://localhost:3001';
-axios.interceptors.request.use(
-  config => {
-    const { origin } = new URL(config.url);
-    const allowedOrigins = [apiUrl];
-    const token = localStorage.getItem('token');
-    if (allowedOrigins.includes(origin)) {
-      config.headers.authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  error => {
-    return Promise.reject(error);
-  }
-);
+
+axios.defaults.withCredentials = true;
+
 function App() {
-  const storedJwt = localStorage.getItem('token');
-  const [jwt, setJwt] = useState(storedJwt || null);
+  const [jwt, setJwt] = useState(null);
   const [foods, setFoods] = useState([]);
   const [fetchError, setFetchError] = useState(null);
-const getJwt = async () => {
+
+  const getJwt = async () => {
     const { data } = await axios.get(`${apiUrl}/jwt`);
-    localStorage.setItem('token', data.token);
     setJwt(data.token);
   };
-const getFoods = async () => {
+
+  const getFoods = async () => {
     try {
       const { data } = await axios.get(`${apiUrl}/foods`);
       setFoods(data);
@@ -35,7 +25,7 @@ const getFoods = async () => {
       setFetchError(err.message);
     }
   };
-return (
+  return (
     <>
       <section style={{ marginBottom: '10px' }}>
         <button onClick={() => getJwt()}>Get JWT</button>
